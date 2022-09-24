@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KELP</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+    <div class="container d-flex justify-content-between nav-bar align-items-center">
+        <div class="d-flex">
+            <h1 class="kelp">K</h1>
+            <h1 class="kelp">E</h1>
+            <h1 class="kelp">L</h1>
+            <h1>P</h1>
+        </div>
+        <div class="">
+            <div class="search-container">
+                <div class="search-bar">
+                    <div id="select">
+                        <p id="select-text">All</p>
+                        <img src="{{url_for('static', filename='img/arrow.png')}}" alt="arrow">
+                        <ul id="category-list">
+                            <li class="options">All</li>
+                            <li class="options">Restaurants</li>
+                            <li class="options">Sushi</li>
+                        </ul>
+                    </div>
+                    <input type="text" id="input-field" autocomplete="off" placeholder="Search All" onkeyup="searchRestaurant()" name="search">
+                </div>
+            </div>
+
+            <div id="restaurants">
+                <ol id="restaurant-list">
+                    {%for restaurant in all_restaurants%}
+                        <li class="restaurants"><a class="restaurant-link" href="/restaurant/{{restaurant.id}}">{{restaurant.name}}, <em class="text-secondary">{{restaurant.address}}</em></a></li>
+                    {%endfor%}
+                    <li><a href="/restaurant/new">Add a restaurant</a></li>
+                </ol>
+            </div>
+
+            <div id="sushi">
+                <ol id="sushi-list">
+                    {%for sushi in all_sushi%}
+                        <li class="sushi"><a class="sushi-link" href="/sushi/{{sushi.id}}/rate/{{logged_user.id}}">{{sushi.name}}</a>, <a class="restaurant-link" href="/restaurant/{{sushi.restaurant.id}}"><em>{{sushi.restaurant.name}}</em></a></li>
+                    {%endfor%}
+                </ol>
+            </div>
+
+            <div id="all">
+                <ol id="all-list">
+                    {%for sushi in all_sushi%}
+                        <li class="all"><a class="sushi-link" href="/sushi/{{sushi.id}}/rate/{{logged_user.id}}">{{sushi.name}}, <em>{{sushi.restaurant.name}}</em></a></li>
+                    {%endfor%}
+                    {%for restaurant in all_restaurants%}
+                        <li class="all"><a class="restaurant-link" href="/restaurant/{{restaurant.id}}">{{restaurant.name}}, <em class="text-secondary">{{restaurant.address}}</em></a></li>
+                    {%endfor%}
+                    <li><a href="/restaurant/new">Add a restaurant</a></li>
+                </ol>
+            </div>
+        </div>
+        <div class="d-flex">
+            <h2 class="h-nav nav"><a class="a-nav" href="/">HOME</a></h2>
+            <!-- <h2>|</h2> -->
+            <h2 class="h-nav nav"><a  class="a-nav" href="/users/logout">LOGOUT</a></h2>
+        </div>
+    </div>
+
+
+    <div>
+        <h1 class="text-center mb-3">{{restaurant.name}}</h1>
+    </div>
+    <div class="container d-flex justify-content-around mb-4">
+        <div class="col-5 box">
+            <h1>{{sushi.name}}</h1>
+            <div class="d-flex align-items-center text-center">
+                {%if not average.average%}
+                <img class="stars mb-2" src="{{ url_for('static', filename='img/0_star.png') }}" alt="">
+                {%endif%}
+                {%if average.average==1%}
+                <img class="stars mb-2" src="{{ url_for('static', filename='img/1_star.png') }}" alt="1_star">
+                {%endif%}
+                {%if average.average==2%}
+                <img class="stars mb-2" src="{{ url_for('static', filename='img/2_star.png') }}" alt="2_star">
+                {%endif%}
+                {%if average.average==3%}
+                <img class="stars mb-2" src="{{ url_for('static', filename='img/3_star.png') }}" alt="3_star">
+                {%endif%}
+                {%if average.average==4%}
+                <img class="stars mb-2" src="{{ url_for('static', filename='img/4_star.png') }}" alt="4_star">
+                {%endif%}
+                {%if average.average==5%}
+                <img class="stars mb-2" src="{{ url_for('static', filename='img/5_star.png') }}" alt="5_star">
+                {%endif%}
+                <p class="mb-2">({{count.counter}})</p>
+            </div>
+
+            {%if not sushi.image%}
+            <img src="{{url_for('static', filename='img/sushi_placeholder.png')}}" class="display-img" alt="">
+            {%else%}
+            <img src="{{sushi.image}}" class="display-img" alt="">
+            {%endif%}
+            <div class="">
+                <div>
+                    <p class="mb-1">SUSHI INGREDIENTS</p>
+                    <p>{{sushi.ingredients}}</p>
+                </div>
+                <div>
+                    <p class="mb-1">SUSHI DESCRIPTION</p>
+                    {%if sushi.description%}
+                    <p>{{sushi.description}}</p>
+                    {%else%}
+                    <p>There is no description available for this sushi.</p>
+                    {%endif%}
+                </div>
+            </div>
+        </div>
+        <div class="box col-5 fit-content">
+            <h1>RATE SUSHI</h1>
+            <h1 class="mb-5">{{sushi.name}}</h1>
+            <form action="/sushi/{{sushi.id}}/post/{{logged_user.id}}" method="post">
+                <div class="d-flex flex-column container mb-3">
+                    <label for="comment">COMMENT</label>
+                    <textarea name="comment" id="comment" cols="30" rows="5"></textarea>
+                </div>
+                <div class="d-flex flex-column container mb-3">
+                    <label for="user_image">IMAGE URL</label>
+                    <input type="text" name="user_image">
+                </div>
+                <div class="rating">
+                    <input id="rating1" type="radio" name="rating" value="1">
+                    <label for="rating1">1</label>
+                    <input id="rating2" type="radio" name="rating" value="2">
+                    <label for="rating2">2</label>
+                    <input id="rating3" type="radio" name="rating" value="3">
+                    <label for="rating3">3</label>
+                    <input id="rating4" type="radio" name="rating" value="4">
+                    <label for="rating4">4</label>
+                    <input id="rating5" type="radio" name="rating" value="5">
+                    <label for="rating5">5</label>
+                </div>
+                <button class="btn btn-success">Create Post!</button>
+            </form>
+        </div>
+    </div>
+    <div class="container">
+        <h1 class="h-nav"><a class="a-nav" href="/restaurant/{{restaurant.id}}">GO BACK</a></h1>
+    </div>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+
+</html>

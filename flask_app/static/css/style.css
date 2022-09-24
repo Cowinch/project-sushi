@@ -1,0 +1,439 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+body{
+    /* background-color:#e0acc6; */
+    background-color: #DB5960;
+    /* background-color: #162760; */
+    /* background-image: linear-gradient(#d484ac,#dd97ba,#e0acc6, #fff); */
+    margin-top:50px
+}
+h1, h3, p, label, th, td, button{
+    color: white;
+}
+h2{
+    color: white;
+}
+#td{
+    color:white;
+}
+
+
+
+/* BUTTON */
+button{
+    border-radius: 8px;
+    padding: 6px 10px;
+    cursor: pointer;
+    color: black;
+    background-color: rgb(204, 174, 4);
+    /* margin-top: 15px; */
+}
+.button-link{
+    text-decoration: none;
+    color: black;
+}
+.button-link a:hover{
+    text-decoration: none;
+    color: black;
+}
+.button-link a:focus{
+    text-decoration: none;
+    color: black;
+}
+.button-link a:active {
+    text-decoration: none;
+    color: black;
+}
+#buttons{
+    border: 2px solid white;
+    height: fit-content;
+    margin-top: 0px;
+    border-radius: 4px;
+    background-color: white;
+    gap: 1px;
+}
+.grey{
+    background-color:rgb(59, 52, 52);
+    color: white;
+}
+/*  */
+
+
+
+
+/* NAVBAR */
+.kelp{
+    padding-right: 5px;
+}
+.nav-bar{
+    height: 50px;
+    margin-bottom: 100px;
+}
+.search-container{
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.search-bar{
+    background: white;
+    width: 100%;
+    /* width: 600px; */
+    display: flex;
+    padding: 2px;
+    border-radius: 4px;
+}
+.search-bar input{
+    padding: 10px 25px;
+    width: 100%;
+    border: none;
+    outline: none;
+    font-size: 18px;
+    vertical-align: center;
+}
+#select{
+    /* background: #dd9fbe; */
+    background-color: rgb(59, 52, 52);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: #fff;
+    width: 200px;
+    padding: 25px 20px;
+    cursor: pointer;
+    position: relative;
+    border-radius: 4px;
+}
+#select p{
+    margin-bottom: 0;
+}
+#select img{
+    width: 20px;
+}
+#select ul{
+    position: absolute;
+    top: 120%;
+    left: 0;
+    list-style: none;
+    background: white;
+    color: #555;
+    width: 100%;
+    border-radius: 4px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s;
+    padding: 0;
+    box-shadow: 0 0 10px black;
+}
+#select ul li{
+    padding: 10px 20px;
+    cursor: pointer;
+}
+#select ul.open{
+    max-height: 300px;
+    padding: 0;
+}
+#input-bar{
+    display: flex;
+    align-items: center;
+}
+#restaurant{
+    color: #fff;
+    /* width: 200px; */
+    /* padding: 25px 20px; */
+    cursor: pointer;
+    position: relative;
+    border-radius: 4px;
+    width: 100%;
+}
+#restaurant-list{
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    list-style: none;
+    background: white;
+    color: black;
+    /* color: #555; */
+    width: 100%;
+    border-radius: 4px;
+    max-height: 00px;
+    overflow: hidden;
+    transition: max-height 0.2s;
+    padding: 0;
+    box-shadow: 0 0 10px black;
+}
+#restuarant-list li{
+    padding: 10px 20px;
+    cursor: pointer;
+}
+#restaurant-list.display{
+    max-height: 200px;
+    padding: 5px;
+    overflow: auto;
+}
+.restaurant-link{
+    text-decoration: none;
+    color: black;
+}
+#sushi-list, #all-list{
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    list-style: none;
+    background: white;
+    color: black;
+    /* color: #555; */
+    width: 100%;
+    border-radius: 4px;
+    max-height: 00px;
+    overflow: hidden;
+    transition: max-height 0.2s;
+    padding: 0;
+    box-shadow: 0 0 10px black;
+}
+#sushi-list li, #all-list li{
+    /* padding: 10px 20px; */
+    cursor: pointer;
+    /* height: 5px; */
+    width: 100%;
+}
+#sushi-list.display, #all-list.display{
+    max-height: 200px;
+    padding: 5px;
+    overflow: auto;
+}
+.sushi-link{
+    text-decoration: none;
+    color: black;
+}
+#sushi, #all{
+    color: #fff;
+    /* width: 200px; */
+    /* padding: 25px 20px; */
+    cursor: pointer;
+    position: relative;
+    border-radius: 4px;
+    width: 100%;
+}
+.nav{
+    padding: 0 10px;
+}
+.a-nav{
+    text-decoration: none;
+    color: white;
+}
+.h-nav a:hover{
+    text-decoration: none;
+    color: rgb(179, 174, 174);
+}
+.h-nav a:focus{
+    text-decoration: none;
+    color: rgb(179, 174, 174);
+}
+.h-nav a:active {
+    text-decoration: none;
+    color: rgb(179, 174, 174);
+}
+
+
+
+
+/* login page */
+.box{
+    border-radius: 2px;
+    padding: 12px 20px;
+    /* border: 3px solid white; */
+    background-color: rgb(59, 52, 52);
+    box-shadow: 0px 0px 12px black;
+}
+.fit-content{
+    block-size: fit-content;
+}
+
+
+
+/* Dashboard */
+#pfp{
+    height: 100px;
+    width: 100px;
+    overflow: hidden;
+    border-radius: 50%;
+    border: 2px solid #DB5960;
+    cursor: pointer;
+    padding: 0px;
+}
+#pfp-border{
+    height: 100px;
+    width: 100px;
+    border: 2px solid white;
+    width: fit-content;
+    height: fit-content;
+    border-radius: 50%;
+    padding: 1px;
+}
+.pfp-box{
+    max-height: 0;
+    /* position: relative;
+    top: -50px; */
+    overflow: hidden;
+    transition: max-height 0.6s;
+}
+.pfp-box.display-pfp{
+    max-height: 300px;
+    padding: 0;
+}
+.friend-box{
+    height: 300px;
+    /* padding-bottom: 50px; */
+    overflow: auto;
+    -ms-overflow-style: none; /*IE and Edge*/
+    scrollbar-width: none; /* Firefox*/
+}
+.friend-text-box{
+    height: 245px;
+    overflow: auto;
+    -ms-overflow-style: none; /*IE and Edge*/
+    scrollbar-width: none; /* Firefox*/
+}
+.friend-text-box::-webkit-scrollbar {
+    display: none; /*Chrome, Safari and Opera*/
+}
+.add-button{
+    cursor: pointer;
+    position: relative;
+    top:-37px;
+    left:7px;
+    width: fit-content;
+}
+.add-input{
+    position: relative;
+    width: 100%;
+    top:-42px;
+    box-shadow: 0px 0px 9px black;
+    border: none;
+    border-radius: 6px;
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height .5s;
+}
+.add-input input{
+    width: 100%;
+}
+.add-input.display-input{
+    max-height: 50px;
+}
+#friends-list{
+    background-color: #fff;
+    width: 100%;
+    cursor: pointer;
+    position: relative;
+    border-radius: 4px;
+    list-style: none;
+    top: -35px;
+    box-shadow: 0 0 10px black;
+    border: none;
+    border-radius: 4px;
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height .2s;
+}
+#friends-list.display-friends{
+    max-height: 200px;
+    overflow: auto;
+}
+.friends{
+    text-decoration: none;
+    position: relative;
+    left: -25px;
+}
+#post-bar{
+    /* border-bottom: 3px solid black; */
+}
+#post-bar h3{
+    margin: 0;
+}
+.post{
+    margin-bottom: 3px;
+}
+#post-container{
+    height: 700px;
+    overflow: auto;
+    -ms-overflow-style: none; /*IE and Edge*/
+    scrollbar-width: none; /* Firefox*/
+}
+#post-container::-webkit-scrollbar {
+    display: none; /*Chrome, Safari and Opera*/
+}
+.post-img{
+    max-width: 200px;
+}
+.stars{
+    height: 25px;
+}
+/*  */
+
+
+
+/* restaurant one */
+.sushi-box{
+    height: 300px;
+    overflow: auto;
+    -ms-overflow-style: none; /*IE and Edge*/
+    scrollbar-width: none; /* Firefox*/
+}
+.sushi-box::-webkit-scrollbar {
+    display: none; /*Chrome, Safari and Opera*/
+}
+.one-sushi{
+    padding: 0px;
+    width: 180px;
+    height: 100px;
+    margin-top: 5px;
+    margin-bottom: 30px;
+}
+.sushi-img{
+    max-height: 60px;
+    max-width: 120px;
+}
+.sushi p{
+    margin-bottom: 0;
+}
+
+/* RATE SUSHI */
+.display-img{
+    max-width: 400px;
+    max-height: 400px;
+}
+
+/* STARS */
+/* This code comes from https://iamkate.com/code/star-rating-widget/ */
+.rating{
+    display : flex;
+}
+
+.rating input{
+    position : absolute;
+    left     : -100vw;
+}
+.rating label{
+    width      : 48px;
+    height     : 48px;
+    padding    : 48px 0 0;
+    overflow   : hidden;
+    background : url('../img/star_rating.svg') no-repeat top left;
+    cursor: pointer;
+}
+.rating:not(:hover) input:indeterminate + label,
+.rating:not(:hover) input:checked ~ input + label,
+.rating input:hover ~ input + label{
+background-position : -48px 0;
+}
+
+.rating:not(:hover) input:focus-visible + label{
+background-position : -96px 0;
+}
+/*  */

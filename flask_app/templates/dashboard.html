@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KELP</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container d-flex justify-content-between nav-bar align-items-center">
+        <div class="d-flex">
+            <h1 class="kelp">K</h1>
+            <h1 class="kelp">E</h1>
+            <h1 class="kelp">L</h1>
+            <h1>P</h1>
+        </div>
+        <div class="">
+            <div class="search-container">
+                <div class="search-bar">
+                    <div id="select">
+                        <p id="select-text">All</p>
+                        <img src="{{url_for('static', filename='img/arrow.png')}}" alt="arrow">
+                        <ul id="category-list">
+                            <li class="options">All</li>
+                            <li class="options">Restaurants</li>
+                            <li class="options">Sushi</li>
+                        </ul>
+                    </div>
+                    <input type="text" id="input-field" autocomplete="off" placeholder="Search All" onkeyup="searchRestaurant()" name="search">
+                </div>
+            </div>
+
+            <div id="restaurants">
+                <ol id="restaurant-list">
+                    {%for restaurant in all_restaurants%}
+                        <li class="restaurants"><a class="restaurant-link" href="/restaurant/{{restaurant.id}}">{{restaurant.name}}, <em class="text-secondary">{{restaurant.address}}</em></a></li>
+                    {%endfor%}
+                    <li><a href="/restaurant/new">Add a restaurant</a></li>
+                </ol>
+            </div>
+
+            <div id="sushi">
+                <ol id="sushi-list">
+                    {%for sushi in all_sushi%}
+                        <li class="sushi"><a class="sushi-link" href="/sushi/{{sushi.id}}/rate/{{logged_user.id}}">{{sushi.name}}</a>, <a class="restaurant-link" href="/restaurant/{{sushi.restaurant.id}}"><em>{{sushi.restaurant.name}}</em></a></li>
+                    {%endfor%}
+                </ol>
+            </div>
+
+            <div id="all">
+                <ol id="all-list">
+                    {%for restaurant in all_restaurants%}
+                        <li class="all"><a class="restaurant-link" href="/restaurant/{{restaurant.id}}">{{restaurant.name}}, <em class="text-secondary">{{restaurant.address}}</em></a></li>
+                    {%endfor%}
+                    {%for sushi in all_sushi%}
+                        <li class="all"><a class="sushi-link" href="/sushi/{{sushi.id}}/rate/{{logged_user.id}}">{{sushi.name}}</a>, <a class="restaurant-link" href="/restaurant/{{sushi.restaurant.id}}"><em>{{sushi.restaurant.name}}</em></a></li>
+                    {%endfor%}
+                    <li><a href="/restaurant/new">Add a restaurant</a></li>
+                </ol>
+            </div>
+        </div>
+        <div class="d-flex">
+            <h2 class="h-nav nav"><a class="a-nav" href="/">HOME</a></h2>
+            <!-- <h2>|</h2> -->
+            <h2 class="h-nav nav"><a  class="a-nav" href="/users/logout">LOGOUT</a></h2>
+        </div>
+    </div>
+
+
+    <div class="container d-flex justify-content-around">
+        <div class="col-2">
+            <div>
+                {%if not page_user.profile_picture%}
+                <div id="pfp-border">
+                    <img src="{{ url_for('static',filename='img/blank.png') }}" {%if logged_user.id==page_user.id%}onclick="profilePictureUpdate()"{%endif%} id='pfp'alt="">
+                </div>
+                {%else%}
+                <div id="pfp-border">
+                    <img src="{{page_user.profile_picture}}" {%if logged_user.id==page_user.id%}onclick="profilePictureUpdate()"{%endif%} id='pfp'alt="">
+                </div>
+                {%endif%}
+                <div class="pfp-box">
+                    <form action="/users/profile/{{page_user.id}}" method="post">
+                        <input type="text" name="profile_picture" id="profile_picture" placeholder="Insert URL for Profile Pic">
+                        <button class="btn btn-success">Submit</button>
+                    </form>
+                </div>
+            </div>
+            <h3 class="mb-4">{{page_user.first_name}} {{page_user.last_name}}</h3>
+            <div>
+                <div>
+                    <h3>FRIENDS</h3>
+                </div>
+                <div>
+                    <div class="box friend-box">
+                        <div class="friend-text-box">
+                            {%if logged_user.id==page_user.id and logged_user.id==1%}
+                                <p class="mb-3">- Blake Winchester</p>
+                                <p class="mb-3">- Albert Einstein</p>
+                                <p class="mb-3">- John Adams</p>
+                                <p class="mb-3">- Giorgio Giovanna</p>
+                                <p class="mb-3">- Brandon Winchester</p>
+                                <p class="mb-3">- Abigail Richards</p>
+                                <p class="mb-3">- Bobby Jackson</p>
+                                <p class="mb-3">- Geoff Cranston</p>
+                                <p class="mb-3">- Hanna Kruse</p>
+                                <p class="mb-3">- Sam Levinge</p>
+                            {%else%}
+                            <p>Your friends list is currently empty.</p>
+                            {%endif%}
+                        </div>
+                    </div>
+                    <div class="add-button d-flex justify-content-between">
+                        <h3  onclick="addFriend()">ADD</h3>
+                        <!-- <h3>REMOVE</h3> -->
+                    </div>
+                    <div class="add-input">
+                        <input type="text" name="add_friend" id="add-friend" onkeyup="searchFriends()" placeholder="add a friend...">
+                    </div>
+                    <ol id="friends-list">
+                        <!-- <li class="friends">Bob Jackson</li>
+                        <li class="friends">Bobby Brown</li>
+                        <li class="friends">Bob Ross</li>
+                        <li class="friends">Tanner</li> -->
+                        {%for friend in all_friends%}
+                        <li class="friends">{{friend.first_name}} {{friend.last_name}}</li>
+                        {%endfor%}
+                    </ol>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div id="post-bar">
+                <h3>POSTS</h3>
+            </div>
+            <div id="post-container" class="d-flex flex-column">
+                {%if not all_posts and logged_user.id==page_user.id%}
+                <h3 class="mt-3">You currently have no posts. Explore the site and find your favorite sushi!</h3>
+                {%endif%}
+                {%if not all_posts and logged_user.id!=page_user.id%}
+                <h3 class="mt-3">This user currently has no posts.</h3>
+                {%endif%}
+                {%for post in all_posts%}
+                <div class="container">
+                    <div class="d-flex justify-content-between align-items-end">
+                        <div>
+                            <p class="mb-0">{{post.sushi.name}}</p>
+                            <p class="m-0"><em>{{post.restaurant.name}}</em></p>
+                        </div>
+                        {%if not post.rating%}
+                        <img class="stars" src="{{ url_for('static', filename='img/0_star.png') }}" alt="">
+                        {%endif%}
+                        {%if post.rating==1%}
+                        <img class="stars" src="{{ url_for('static', filename='img/1_star.png') }}" alt="1_star">
+                        {%endif%}
+                        {%if post.rating==2%}
+                        <img class="stars" src="{{ url_for('static', filename='img/2_star.png') }}" alt="2_star">
+                        {%endif%}
+                        {%if post.rating==3%}
+                        <img class="stars" src="{{ url_for('static', filename='img/3_star.png') }}" alt="3_star">
+                        {%endif%}
+                        {%if post.rating==4%}
+                        <img class="stars" src="{{ url_for('static', filename='img/4_star.png') }}" alt="4_star">
+                        {%endif%}
+                        {%if post.rating==5%}
+                        <img class="stars" src="{{ url_for('static', filename='img/5_star.png') }}" alt="5_star">
+                        {%endif%}
+                    </div>
+                    <div class="post box">
+                        <p>{{post.comment}}</p>
+                        <img class="post-img"src="{{post.user_image}}" alt="">
+                    </div>
+                    {%if post.user_id==logged_user.id%}
+                    <div class="d-flex mb-5">
+                        <p class="h-nav nav"><a class="a-nav" href="/sushi/{{post.sushi.id}}/post/{{logged_user.id}}/{{post.id}}/edit">EDIT</a></p>
+                        <p class="h-nav nav"><a class="confirmation a-nav"href="">DELETE</a></p>
+                    </div>
+                    {%endif%}
+                </div>
+                {%endfor%}
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

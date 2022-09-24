@@ -1,0 +1,23 @@
+Sept. 21st 2022
+1: How to I get to the cascade feature in MySQL - SOLVED: I need to select the foreign key.
+
+2: I am able to create posts, but I am unable to call upon it in the model, Im doing something wrong
+
+3: for the friends query. We only want to grab users that are not already friends AND we want to exclude the current user. I can exclude the current user in jinja with a "and !logged_user" statement, potentially
+
+
+
+SUSHI RESTAURANT  NAMES
+    <li class="restaurants">Sushiverse</li>
+    <li class="restaurants">Kappa Maki</li>
+    <li class="restaurants">Ikura</li>
+    <li class="restaurants">Dragon and Eel</li>
+    <li class="restaurants">Casual Kaiseki</li>
+    <li class="restaurants">Nigiri House</li>
+    <li class="restaurants">Octopus Sushi Co.</li>
+    <li class="restaurants">21st Century Sushi</li>
+    <li class="restaurants">Sister's Sushi House</li>
+    <li class="restaurants">Samurai Sushi</li>
+    <li class="restaurants">Sushiio</li>
+    <li class="restaurants">Kantaro Sushi</li>
+    <li class="restaurants">So Much Sushi</li>
