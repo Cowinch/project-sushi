@@ -6,8 +6,6 @@ To launch this project:
 
 2. in your terminal, globally install pip environment: pip install pipenv
 
-2.1 you can verify installation with: python -m pipenv
-
 3. Navigate to the directory of the project in the terminal and install the virtual environment: pipenv install flask
 
 4. Enter the virtual environment: pipenv shell
